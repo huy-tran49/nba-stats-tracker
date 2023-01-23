@@ -14,4 +14,12 @@ As a user you will be able to:
 
 # Wire Frame
 
+![home](https://user-images.githubusercontent.com/23158353/213958810-35978d65-696f-4c0d-a536-847b78e8c11d.PNG)
+![signup-login](https://user-images.githubusercontent.com/23158353/213958853-16b9d5e3-0f64-4e43-9543-e1663091ad1c.PNG)
+![tracker](https://user-images.githubusercontent.com/23158353/213958893-03e8e414-9790-4969-999a-5bc49e850897.PNG)
+![search](https://user-images.githubusercontent.com/23158353/213958900-b9409707-d081-4583-bb62-5755c4e6f78e.PNG)
+![find](https://user-images.githubusercontent.com/23158353/213958906-8343cbfd-268a-45e6-a26a-260c1b0aac47.PNG)
+
 # ERD
+
+![ERD](https://user-images.githubusercontent.com/23158353/213958911-16eb891d-c480-4b79-8dca-2fce159941c3.PNG)
