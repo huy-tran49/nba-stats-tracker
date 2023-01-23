@@ -1,4 +1,5 @@
 const { Schema, model } = require('./connection.js')
+const User = require('./user')
 
 const PlayerSchema = new Schema ({
     name: {
@@ -14,11 +15,16 @@ const PlayerSchema = new Schema ({
     assists: {
         type: Number
     },
+    fieldGoalPercentage: {
+        type: Number
+    },
     owner: {
         type: Schema.Types.ObjectID,
 		ref: 'User',
     }
-})
+},
+{ timestamps: true }
+)
 
 const Player = model('Player', PlayerSchema)
 

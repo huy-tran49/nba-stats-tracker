@@ -6,7 +6,9 @@ const express = require("express")
 const middleware = require('./utils/middleware')
 const ExampleRouter = require('./controllers/example')
 const UserRouter = require('./controllers/user')
-const User = require("./models/user")
+const TrackerRouter = require('./controllers/trackerController')
+
+
 // SEE MORE DEPENDENCIES IN ./utils/middleware.js
 // user and resource routes linked in ./utils/middleware.js
 
@@ -23,6 +25,7 @@ middleware(app)
 
 app.use('/auth', UserRouter)
 app.use('/examples', ExampleRouter)
+app.use('/tracker', TrackerRouter)
 
 app.get('/', (req, res) => {
     const { username, userId, loggedIn } = req.session
