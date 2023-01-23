@@ -1,5 +1,5 @@
 # Description
-NBA stats tracker is a simple app that will let you track all your favorite users and team stats. No need to search for the stats for each individual players. Just login and add your favorite players to the tracker to see their stats.
+NBA stats tracker is a simple app that will let you track all your favorite players and team stats. No need to search the stats for each individual players. Just login and add your favorite players to the tracker to see their stats.
 
 # User Story
 As a user you will be able to:
@@ -11,6 +11,24 @@ As a user you will be able to:
 - Add a team to begin tracking their stats
 - Remove a player from the tracker
 - Remove a team from the tracker
+
+# Routes
+## User
+| URL | HTTP | Action | Description
+| ----------- | ----------- | ----------- | ----------- |
+| /users/signup | Post | Create | Create user
+| /users/login | Post | Show | User log in
+| /users/logout | Delete | Destroy | User log out
+
+## Tracker
+| URL | HTTP | Action | Description
+| ----------- | ----------- | ----------- | ----------- |
+| /tracker | Get | Index | Tracker main page after logged in
+| /tracker/remove/:playerID | Delete | Destroy | remove player from tracker 
+| /tracker/remove/:teamID | Delete | Destroy | remove team from tracker
+| /tracker/search | Post | New | show search form
+| /tracker/:playerID | Get | Show | show a player by ID
+| /tracker/:teamID | Get | Show | show a team by ID
 
 # Wire Frame
 
