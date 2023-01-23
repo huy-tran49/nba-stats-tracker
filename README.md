@@ -24,11 +24,11 @@ As a user you will be able to:
 | URL | HTTP | Action | Description
 | ----------- | ----------- | ----------- | ----------- |
 | /tracker | Get | Index | Tracker main page after logged in
-| /tracker/remove/:playerID | Delete | Destroy | remove player from tracker 
-| /tracker/remove/:teamID | Delete | Destroy | remove team from tracker
-| /tracker/search | Post | New | show search form
-| /tracker/:playerID | Get | Show | show a player by ID
-| /tracker/:teamID | Get | Show | show a team by ID
+| /tracker/remove/:playerID | Delete | Destroy | Remove player from tracker 
+| /tracker/remove/:teamID | Delete | Destroy | Remove team from tracker
+| /tracker/search | Post | New | Show search form
+| /tracker/:playerID | Get | Show | Show a player by ID
+| /tracker/:teamID | Get | Show | Show a team by ID
 
 # Wire Frame
 
