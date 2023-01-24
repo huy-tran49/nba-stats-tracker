@@ -2,7 +2,17 @@
 {% block content %}
 
   <h1>Display all teams and players</h1>
-
-
-
+  {% if players.data.length > 0 %}
+    <div class="container-md">
+      <div class="row">
+        {% for player in players.data %}
+          <div class="card" style="width: 18rem;">
+            <h4 class="card-header">First Name: {{ player.first_name }}</h4>
+            <h4 class="card-header">Last Name: {{ player.last_name }}</h4>
+            <h4 class="card-header">Position: {{ player.position }}</h4>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
 {% endblock %}
