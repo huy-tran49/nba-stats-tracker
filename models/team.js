@@ -6,6 +6,10 @@ const TeamSchema = new Schema ({
         type: String,
         require: true
     },
+    city: {
+        type: String,
+        require: true
+    },
     pointsFor: {
         type: Number
     },
@@ -23,6 +27,6 @@ const TeamSchema = new Schema ({
 { timestamps: true }
 )
 
-const Team = model('Player', TeamSchema)
+const Team = model('Team', TeamSchema)
 
 module.exports = Team
