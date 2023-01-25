@@ -26,20 +26,27 @@ router.post('/', (req, res) => {
     Player.create(req.body)
         .then(player => {
             console.log(player)
-            // res.redirect('tracker/mine')
+            res.redirect(`tracker/player/${player.lastName}`)
         })
         .catch(err => {
             console.log(err)
-            res.redirect('tracker/mine')
+            res.sendStatus(404)
         })
 })
 
 // show tracker
-router.get('/mine', (req, res) => {
-    const { username, userId, loggedIn } = req.session
-    res.render('tracker/mine', { loggedIn, username, userId })
-
-})
+// router.get('/mine', (req, res) => {
+//     const { username, userId, loggedIn } = req.session
+//     Player.find({ owner: req.session.userId})
+//         .then(players => {
+//             const playerLName = player.lastName
+//             axios.get(`https://balldontlie.io/api/v1/stats?last_name=beal`)
+//                 .then(data => {
+//                     const playerStats = data.data
+//                     res.render('tracker/mine', { loggedIn, username, userId, players, playerStats })
+//                 })
+//         })
+// })
 
 // get all players
 router.get('/all', (req, res) => {
@@ -55,9 +62,21 @@ router.get('/all', (req, res) => {
 // router.
 
 // show a player after search
-router.get('/player/:playerName', (req, res) => {
+router.get('/player/:lastName', (req, res) => {
     const { username, userId, loggedIn } = req.session
-    res.render('tracker/player', { loggedIn, username, userId })
+    const playerLName = req.params.lastName
+    console.log(playerLName)
+    axios.get(`https://balldontlie.io/api/v1/players?search=${playerLName}`)
+        .then(data => {
+            console.log('this is data',data)
+            console.log('this is data.data.data[0].id', data.data.data[0].id)
+            const playerData = data.data
+            res.render('tracker/player', { loggedIn, username, userId, playerData })
+        })
+        .catch(err => {
+            console.log(err)
+            res.sendStatus(404)
+        })
 })
 
 //show a team after search

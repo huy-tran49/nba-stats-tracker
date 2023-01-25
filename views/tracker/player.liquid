@@ -2,7 +2,20 @@
 {% block content %}
 
   <h1>Display a player after submitting a search</h1>
-
+  {% if playerData.data.length > 0 %}
+    <div class="container-lg">
+      <div class="row">
+        {% for player in playerData.data %}
+          <div class="card me-2 mb-2" style="width: 18rem;">
+            <h5 class="card-header">First Name: {{ player.first_name }}</h5>
+            <h5 class="card-header">Last Name: {{ player.last_name }}</h5>
+            <h5 class="card-header">ID: {{ player.id }}</h5>
+            <h5 class="card-header">Team: {{ player.team.full_name }}</h5>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
 
 
 {% endblock %}
