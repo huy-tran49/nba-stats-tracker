@@ -14,22 +14,31 @@ const axios = require('axios')
 
 module.exports = router
 
-// tracker main page.
-router.get('/', (req, res) => {
+//add form for players and teams 
+router.get('/add', (req, res) => {
     const { username, userId, loggedIn } = req.session
-    res.render('tracker/home', { loggedIn, username, userId })
+    res.render('tracker/addPlayer', { loggedIn, username, userId })
 })
 
-//search form for players and teams 
-router.get('/search', (req, res) => {
-    const { username, userId, loggedIn } = req.session
-    res.render('tracker/search', { loggedIn, username, userId })
+router.post('/', (req, res) => {
+    req.body.owner = req.session.userId
+    console.log(req.body)
+    Player.create(req.body)
+        .then(player => {
+            console.log(player)
+            // res.redirect('tracker/mine')
+        })
+        .catch(err => {
+            console.log(err)
+            res.redirect('tracker/mine')
+        })
 })
 
 // show tracker
 router.get('/mine', (req, res) => {
     const { username, userId, loggedIn } = req.session
     res.render('tracker/mine', { loggedIn, username, userId })
+
 })
 
 // get all players
@@ -46,7 +55,7 @@ router.get('/all', (req, res) => {
 // router.
 
 // show a player after search
-router.get('/search/:playerName', (req, res) => {
+router.get('/player/:playerName', (req, res) => {
     const { username, userId, loggedIn } = req.session
     res.render('tracker/player', { loggedIn, username, userId })
 })
@@ -56,3 +65,11 @@ router.get('/search/:teamName', (req, res) => {
     const { username, userId, loggedIn } = req.session
     res.render('tracker/team', { loggedIn, username, userId })
 })
+
+// tracker main page.
+router.get('/', (req, res) => {
+    const { username, userId, loggedIn } = req.session
+    res.render('tracker/home', { loggedIn, username, userId })
+})
+
+module.exports = router

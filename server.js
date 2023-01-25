@@ -39,9 +39,9 @@ app.get('/error', (req, res) => {
 })
 
 // if page is not found, send to error page
-app.all('*', (req, res) => {
-	res.redirect('/error')
-})
+// app.all('*', (req, res) => {
+// 	res.redirect('/error')
+// })
 
 
 

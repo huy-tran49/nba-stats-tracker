@@ -2,9 +2,13 @@ const { Schema, model } = require('./connection.js')
 const User = require('./user')
 
 const PlayerSchema = new Schema ({
-    name: {
+    lastName: {
         type: String,
-        require: true
+        require: true,
+        unique: true
+    },
+    firstName: {
+        type: Number
     },
     points: {
         type: Number
