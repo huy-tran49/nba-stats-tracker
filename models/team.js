@@ -4,10 +4,15 @@ const User = require('./user')
 const TeamSchema = new Schema ({
     name: {
         type: String,
-        require: true
+        require: true,
+        unique: true
     },
     city: {
         type: String,
+        require: true
+    },
+    id: {
+        type: Number,
         require: true
     },
     pointsFor: {

@@ -11,7 +11,7 @@
             <h5 class="card-header">Last Name: {{ player.last_name }}</h5>
             <h5 class="card-header">ID: {{ player.id }}</h5>
             <h5 class="card-header">Team: {{ player.team.full_name }}</h5>
-            <form action="/tracker/player?_method=PUT" method="POST">
+            <form action="/tracker/player" method="POST">
             <fieldset>
                 <input 
                     type="hidden" 

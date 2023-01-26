@@ -1,7 +1,41 @@
 {% layout "layout.liquid" %}
 {% block content %}
 
-  <h1>Display a team after submitting a search</h1>
+{% if teamData.data.length > 0 %}
+<div class="container-lg">
+  <div class="row">
+    {% for team in teamData.data %}
+      <div class="card mb-3" style="width: 70rem;">
+        <h5 class="card-header">Team Name: {{ team.full_name }}</h5>
+        <h5 class="card-header">City: {{ team.city }}</h5>
+        <h5 class="card-header">Conference: {{ team.conference }}</h5>
+        <h5 class="card-header">ID: {{ team.id }}</h5>
+        <form action="/tracker/team" method="POST">
+        <fieldset>
+            <input 
+                type="hidden" 
+                name="id" 
+                class="form-control mb-3"
+                value="{{ team.id }}">
+        <fieldset>
+            <input 
+                type="hidden" 
+                name="city" 
+                class="form-control mb-3"
+                value="{{ team.city }}">
+        <fieldset>
+            <input 
+                type="hidden" 
+                name="name" 
+                class="form-control mb-3"
+                value="{{ team.full_name }}">
+    </form>
+    <input type="submit" value="Add To Tracker" class="btn btn-success">
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
 
 
 
