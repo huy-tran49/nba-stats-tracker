@@ -2,11 +2,18 @@
 {% block content %}
 
   <h1>Display the team and player that you want to track</h1>
-  <div class="container-lg">
-    <h4>{{players.lastName}}</h4>
-    <h4>{{playerStats.ast}}</h4>
-    <h4>{{playerStats.}}</h4>
-  </div>
+  {% if players.length > 0 %}
+    <div class="container-lg">
+      <div class="row">
+        {% for player in players %}
+          <div class="card mb-3" style="width: 70rem;">
+            <h5 class="card-header">Name: {{ player.firstName }} {{ player.lastName }}</h5>
+            <h5 class="card-header">Points: {{ dataAPI.pts }}</h5>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
 
 
 {% endblock %}

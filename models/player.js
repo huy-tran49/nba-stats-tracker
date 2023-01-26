@@ -10,7 +10,7 @@ const PlayerSchema = new Schema ({
     firstName: {
         type: String
     },
-    id: {
+    idAPI: {
     },
     owner: {
         type: Schema.Types.ObjectID,

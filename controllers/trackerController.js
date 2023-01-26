@@ -36,8 +36,23 @@ router.get('/mine', (req, res) => {
     const { username, userId, loggedIn } = req.session
     Player.find({ owner: req.session.userId})
         .then(players => {
-            res.render('tracker/mine', { loggedIn, username, userId, players })
-         
+            
+            async function getAPI () {
+                let dataAPI = []
+                await players.forEach(player => {
+                    axios.get(`https://www.balldontlie.io/api/v1/season_averages?player_ids[]=${player.idAPI}`)
+                        .then(data => {
+                        dataAPI.push(data.data.data)
+                        console.log('this is console log inside for loop',dataAPI)
+                    })  
+                })
+                // console.log('this is console log outside for loop after return',dataAPI)
+                // await res.render('tracker/mine', { loggedIn, username, userId, players, dataAPI })  
+            }
+            getAPI()
+            console.log('this is console log outside for loop after return',dataAPI)
+            res.render('tracker/mine', { loggedIn, username, userId, players, dataAPI })  
+            
         })
 })
 
@@ -48,6 +63,10 @@ router.get('/all', (req, res) => {
         .then(data => {
             const players = data.data
             res.render('tracker/all', { loggedIn, username, userId, players })
+        })
+        .catch(err => {
+            console.log(err)
+            res.sendStatus(404)
         })
 })
 
@@ -69,11 +88,11 @@ router.get('/player/:lastName', (req, res) => {
 // create a player in the database and assign an owner to the player
 router.post('/player', (req, res) => {
     req.body.owner = req.session.userId
-    const player = {id: req.body.id , firstName: req.body.firstName, lastName: req.body.lastName, owner: req.body.owner}
+    const player = {idAPI: req.body.id , firstName: req.body.firstName, lastName: req.body.lastName, owner: req.body.owner}
     console.log('this is req.body from tracker/player', req.body)
     Player.create(player)
         .then(() => {
-            res.redirect('tracker/mine') 
+            res.redirect('mine') 
         })
         .catch(err => {
             console.log(err)
@@ -99,7 +118,7 @@ router.get('/team', (req, res) => {
 // create a player in the database and assign an owner to the player
 router.post('/team', (req, res) => {
     req.body.owner = req.session.userId
-    const team = {id: req.body.id , name: req.body.name, city: req.body.city, owner: req.body.owner}
+    const team = {idAPI: req.body.id , name: req.body.name, city: req.body.city, owner: req.body.owner}
     console.log('this is req.body from tracker/team', req.body)
     Team.create(team)
         .then(() => {

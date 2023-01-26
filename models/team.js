@@ -11,7 +11,7 @@ const TeamSchema = new Schema ({
         type: String,
         require: true
     },
-    id: {
+    idAPI: {
         type: Number,
         require: true
     },
