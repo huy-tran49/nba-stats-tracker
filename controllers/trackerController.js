@@ -21,17 +21,8 @@ router.get('/add', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    req.body.owner = req.session.userId
-    console.log(req.body)
-    Player.create(req.body)
-        .then(player => {
-            console.log(player)
-            res.redirect(`tracker/player/${player.lastName}`)
-        })
-        .catch(err => {
-            console.log(err)
-            res.sendStatus(404)
-        })
+    const lastName = req.body.lastName
+    res.redirect(`tracker/player/${lastName}`)  
 })
 
 // show tracker
@@ -68,10 +59,25 @@ router.get('/player/:lastName', (req, res) => {
     console.log(playerLName)
     axios.get(`https://balldontlie.io/api/v1/players?search=${playerLName}`)
         .then(data => {
-            console.log('this is data',data)
-            console.log('this is data.data.data[0].id', data.data.data[0].id)
             const playerData = data.data
             res.render('tracker/player', { loggedIn, username, userId, playerData })
+        })
+        .catch(err => {
+            console.log(err)
+            res.sendStatus(404)
+        })
+})
+
+router.post('/player', (req, res) => {
+    req.body.owner = req.session.userId
+    
+    const player = {id: req.body.id , firstName: req.body.firstName, lastName: req.body.lastName, owner: req.body.owner}
+    
+    console.log('this is req.body from tracker/player', req.body)
+    Player.create(player)
+        .then(() => {
+            res.redirect('tracker/mine')
+            
         })
         .catch(err => {
             console.log(err)

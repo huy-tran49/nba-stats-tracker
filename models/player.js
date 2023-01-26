@@ -8,19 +8,9 @@ const PlayerSchema = new Schema ({
         unique: true
     },
     firstName: {
-        type: Number
+        type: String
     },
-    points: {
-        type: Number
-    },
-    rebounds: {
-        type: Number
-    },
-    assists: {
-        type: Number
-    },
-    fieldGoalPercentage: {
-        type: Number
+    id: {
     },
     owner: {
         type: Schema.Types.ObjectID,

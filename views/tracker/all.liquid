@@ -6,10 +6,10 @@
     <div class="container-md">
       <div class="row">
         {% for player in players.data %}
-          <div class="card" style="width: 18rem;">
-            <h4 class="card-header">First Name: {{ player.first_name }}</h4>
-            <h4 class="card-header">Last Name: {{ player.last_name }}</h4>
-            <h4 class="card-header">Position: {{ player.position }}</h4>
+          <div class="card mb-3" style="width: 70rem;">
+            <h5 class="card-header">First Name: {{ player.first_name }}</h5>
+            <h5 class="card-header">Last Name: {{ player.last_name }}</h5>
+            <h5 class="card-header">Team: {{ player.team.full_name }}</h5>
           </div>
         {% endfor %}
       </div>
