@@ -2,19 +2,26 @@
 {% block content %}
 
   <h1>Display the team and player that you want to track</h1>
+  <br>
   {% if players.length > 0 %}
     <div class="container-lg">
       <div class="row">
  
-        {% for player in players %}
+        {% for player in savedPlayerData %}
          
           <div class="card mb-3" style="width: 70rem;">
-            <h5 class="card-header">Name: {{ dataAPI[forloop.index0].name }} </h5>
-
-            <h5 class="card-header">Points: {{ dataAPI[forloop.index0].stats[0].pts }}</h5>
+            <h5 class="card-header">Name: {{ savedPlayerData[forloop.index0].name }} </h5>
+            <h5 class="card-header">Points: {{ savedPlayerData[forloop.index0].stats[0].pts }}</h5>
+            <h5 class="card-header">Rebounds: {{ savedPlayerData[forloop.index0].stats[0].reb }}</h5>
+            <h5 class="card-header">Assists: {{ savedPlayerData[forloop.index0].stats[0].ast }}</h5>
+            <h5 class="card-header">Steals: {{ savedPlayerData[forloop.index0].stats[0].stl }}</h5>
+            <h5 class="card-header">Blocks: {{ savedPlayerData[forloop.index0].stats[0].blk }}</h5>
+            <h5 class="card-header">Field Goal Percentage: {{ savedPlayerData[forloop.index0].stats[0].fg_pct }}</h5>
            
           </div>
         {% endfor %}
+
+        {{}}
       </div>
     </div>
   {% endif %}

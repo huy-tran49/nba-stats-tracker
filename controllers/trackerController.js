@@ -32,36 +32,96 @@ router.post('/ts', (req, res) => {
 })
  
 //show tracker/mine
-router.get('/mine', (req, res) => {
+router.get('/mine', (req, res, next) => {
     const { username, userId, loggedIn } = req.session
-    Player.find({ owner: req.session.userId})
+    const getAllAPI = async () => {
+        let savedPlayerData 
+        await Player.find({ owner: req.session.userId})
         .then(players => {
-            let dataAPI = []
-            // let playerdata = {}
-            const getAPI = async () => {
+            let playerDataAPI = []
+            const getPlayerAPI = async () => {
                 for (player of players) {
                     let playerdata = {}
                     playerdata.name = `${player.firstName} ${player.lastName}`
-                    // dataAPI.push(playerdata)
                     await axios.get(`https://www.balldontlie.io/api/v1/season_averages?player_ids[]=${player.idAPI}`)
                         .then(data => {
                             playerdata.stats = data.data.data
-                            // console.log('this is console log inside for loop',playerdata)
-                            // dataAPI.push(data.data.data)
-                            // console.log('this is console log inside for loop',dataAPI)
                         })  
                         .catch(err => {
                             console.log(err)
                         })
-                    dataAPI.push(playerdata)
+                        playerDataAPI.push(playerdata)
                 }
-                dataAPI = dataAPI.flat()
-                console.log('this is console log outside for loop after return',dataAPI)
-                res.render('tracker/mine', { loggedIn, username, userId, players, dataAPI }) 
+                playerDataAPI = playerDataAPI.flat()
+                // res.render('tracker/mine', { loggedIn, username, userId, players, playerDataAPI }) 
+                // console.log('this is playerDataAPI',playerDataAPI)
+                savedPlayerData = playerDataAPI
+                // console.log('this is savedPlayerData inside player',savedPlayerData)
             }
-            getAPI()    
-        })  
-})
+            getPlayerAPI()    
+        })
+        .catch(err => {
+            console.log(err)
+        })
+        await Team.find({ owner: req.session.userId})
+        .then(teams => {
+            console.log('this is savedPlayerData inside team',savedPlayerData)
+            let teamDataAPI = []
+            const getTeamAPI = async () => {
+                for (team of teams) {
+                    let teamdata = {}
+                    await axios.get(`https://www.balldontlie.io/api/v1/teams/${team.idAPI}`)
+                        .then(data => {
+                            teamdata.stats = data.data
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                        teamDataAPI.push(teamdata)
+                }
+                // console.log('this is teamDataAPI',teamDataAPI)
+                teamDataAPI = teamDataAPI.flat()
+                res.render('tracker/mine', { loggedIn, username, userId, teamDataAPI, savedPlayerData }) 
+                // console.log('this is savedPlayerData inside team',savedPlayerData)
+            }
+            getTeamAPI()
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+    getAllAPI() 
+}) 
+
+// router.get('/mine', (req, res) => {
+//     const { username, userId, loggedIn } = req.session
+//     Team.find({ owner: req.session.userId})
+//         .then(teams => {
+//             let teamDataAPI = []
+//             const getTeamAPI = async () => {
+//                 for (team of teams) {
+//                     let teamdata = {}
+//                     teamdata
+//                     await axios.get(`https://www.balldontlie.io/api/v1/teams/${team.idAPI}`)
+//                         .then(data => {
+//                             console.log('this is data', data.data)
+//                             teamdata.stats = data.data
+//                         })
+//                         .catch(err => {
+//                             console.log(err)
+//                         })
+//                         teamDataAPI.push(teamdata)
+//                 }
+//                 console.log(teamDataAPI)
+//                 teamDataAPI = teamDataAPI.flat()
+//                 res.send('tracker/mine', { loggedIn, username, userId, teamDataAPI }) 
+//             }
+//             getTeamAPI()
+//         })
+//         .catch(err => {
+//             console.log(err)
+//         })
+// })
 
 // get all players
 router.get('/all', (req, res) => {
