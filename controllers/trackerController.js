@@ -35,7 +35,7 @@ router.post('/ts', (req, res) => {
 router.get('/mine', (req, res, next) => {
     const { username, userId, loggedIn } = req.session
     const getAllAPI = async () => {
-        let savedPlayerData 
+        let savedTeamData 
         await Player.find({ owner: req.session.userId})
         .then(players => {
             let playerDataAPI = []
@@ -53,10 +53,9 @@ router.get('/mine', (req, res, next) => {
                         playerDataAPI.push(playerdata)
                 }
                 playerDataAPI = playerDataAPI.flat()
-                // res.render('tracker/mine', { loggedIn, username, userId, players, playerDataAPI }) 
+                res.render('tracker/mine', { loggedIn, username, userId, players, playerDataAPI, savedTeamData }) 
                 // console.log('this is playerDataAPI',playerDataAPI)
-                savedPlayerData = playerDataAPI
-                // console.log('this is savedPlayerData inside player',savedPlayerData)
+                console.log('this is savedTeamData inside player',savedTeamData)
             }
             getPlayerAPI()    
         })
@@ -65,7 +64,6 @@ router.get('/mine', (req, res, next) => {
         })
         await Team.find({ owner: req.session.userId})
         .then(teams => {
-            console.log('this is savedPlayerData inside team',savedPlayerData)
             let teamDataAPI = []
             const getTeamAPI = async () => {
                 for (team of teams) {
@@ -81,7 +79,8 @@ router.get('/mine', (req, res, next) => {
                 }
                 // console.log('this is teamDataAPI',teamDataAPI)
                 teamDataAPI = teamDataAPI.flat()
-                res.render('tracker/mine', { loggedIn, username, userId, teamDataAPI, savedPlayerData }) 
+                // res.render('tracker/mine', { loggedIn, username, userId, teamDataAPI, savedPlayerData }) 
+                savedTeamData = teamDataAPI
                 // console.log('this is savedPlayerData inside team',savedPlayerData)
             }
             getTeamAPI()
