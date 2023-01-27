@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <a href="/" class="navbar-brand">Main</a>
       {% if loggedIn %}
-        <a href="/tracker/mine" class="nav-link text-light me-4">Hello {{ username }}
+        <a href="/" class="nav-link text-light me-4">Hello {{ username }}
         </a>
       {% endif %}
       <button
@@ -20,7 +20,8 @@
         {% if loggedIn %}
           <a href="/tracker/all" class="nav-link text-light me-4">View All</a>
           <a href="/tracker/search" class="nav-link text-light me-4">Search</a>
-          <a href="/tracker/mine" class="nav-link text-light me-4">My Tracker</a>
+          <a href="/tracker/team/myteam" class="nav-link text-light me-4">My Team</a>
+          <a href="/tracker/player/myplayer" class="nav-link text-light me-4">My Player</a>
           <a href="/auth/logout" class="nav-link text-light me-4">Log Out</a>
         {% else %}
           <a href="/auth/signup" class="nav-link text-light me-4">Sign Up</a>

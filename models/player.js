@@ -5,7 +5,6 @@ const PlayerSchema = new Schema ({
     lastName: {
         type: String,
         require: true,
-        unique: true
     },
     firstName: {
         type: String
