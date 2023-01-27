@@ -5,10 +5,14 @@
   {% if players.length > 0 %}
     <div class="container-lg">
       <div class="row">
+ 
         {% for player in players %}
+         
           <div class="card mb-3" style="width: 70rem;">
-            <h5 class="card-header">Name: {{ player.firstName }} {{ player.lastName }}</h5>
-            <h5 class="card-header">Points: {{ dataAPI.pts }}</h5>
+            <h5 class="card-header">Name: {{ dataAPI[forloop.index0].name }} </h5>
+
+            <h5 class="card-header">Points: {{ dataAPI[forloop.index0].stats[0].pts }}</h5>
+           
           </div>
         {% endfor %}
       </div>

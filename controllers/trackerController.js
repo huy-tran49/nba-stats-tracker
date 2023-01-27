@@ -30,30 +30,37 @@ router.post('/ps', (req, res) => {
 router.post('/ts', (req, res) => {
     res.redirect(`team`)  
 })
-
+ 
 //show tracker/mine
 router.get('/mine', (req, res) => {
     const { username, userId, loggedIn } = req.session
     Player.find({ owner: req.session.userId})
         .then(players => {
-            
-            async function getAPI () {
-                let dataAPI = []
-                await players.forEach(player => {
-                    axios.get(`https://www.balldontlie.io/api/v1/season_averages?player_ids[]=${player.idAPI}`)
+            let dataAPI = []
+            // let playerdata = {}
+            const getAPI = async () => {
+                for (player of players) {
+                    let playerdata = {}
+                    playerdata.name = `${player.firstName} ${player.lastName}`
+                    // dataAPI.push(playerdata)
+                    await axios.get(`https://www.balldontlie.io/api/v1/season_averages?player_ids[]=${player.idAPI}`)
                         .then(data => {
-                        dataAPI.push(data.data.data)
-                        console.log('this is console log inside for loop',dataAPI)
-                    })  
-                })
-                // console.log('this is console log outside for loop after return',dataAPI)
-                // await res.render('tracker/mine', { loggedIn, username, userId, players, dataAPI })  
+                            playerdata.stats = data.data.data
+                            // console.log('this is console log inside for loop',playerdata)
+                            // dataAPI.push(data.data.data)
+                            // console.log('this is console log inside for loop',dataAPI)
+                        })  
+                        .catch(err => {
+                            console.log(err)
+                        })
+                    dataAPI.push(playerdata)
+                }
+                dataAPI = dataAPI.flat()
+                console.log('this is console log outside for loop after return',dataAPI)
+                res.render('tracker/mine', { loggedIn, username, userId, players, dataAPI }) 
             }
-            getAPI()
-            console.log('this is console log outside for loop after return',dataAPI)
-            res.render('tracker/mine', { loggedIn, username, userId, players, dataAPI })  
-            
-        })
+            getAPI()    
+        })  
 })
 
 // get all players
