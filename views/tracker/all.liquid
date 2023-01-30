@@ -1,18 +1,41 @@
 {% layout "layout.liquid" %}
 {% block content %}
+<div class="container-lg">
+  <h1>Display game score</h1>
+  <br>
+  <div class="container-sm">
+  <form action="/tracker/all" method="POST">
+        <fieldset>
+            <input 
+                type="date" 
+                name="date" 
+                class="form-control mb-3"
+                value="date">
+  
+    </form>
+    <input type="submit" value="Search" class="btn btn-success">
+    </div>
+    <br>
+    <h3>{{games[0].team.full_name}} {{games[0].game.home_team_score}} <span class="me-5"></span>{{games[23].team.full_name}} {{games[0].game.visitor_team_score}} </h3>
+    </div>
+    <br>
+  {% if games.length > 0 %}
+    <div class="container-lg">
 
-  <h1>Display random players</h1>
-  {% if players.data.length > 0 %}
-    <div class="container-md">
-      <div class="row">
-        {% for player in players.data %}
-          <div class="card mb-3" style="width: 70rem;">
-            <h5 class="card-header">First Name: {{ player.first_name }}</h5>
-            <h5 class="card-header">Last Name: {{ player.last_name }}</h5>
-            <h5 class="card-header">Team: {{ player.team.full_name }}</h5>
+      {% for game in games %}
+        {% if game.min > 0  %}
+        <div class="row">
+          <h5 class=" col-3">{{ game.player.first_name }} {{ game.player.last_name }}</h5>
+          <p class=" col-1">Mins: {{ game.min }}</p>
+          <p class=" col-1">Pts: {{ game.pts }}</p>
+          <p class=" col-1">Rebs: {{ game.reb }}</p>
+          <p class=" col-1">Asts: {{ game.ast }}</p>
+          <p class=" col-3">Team: {{ game.team.full_name }}</p>
           </div>
-        {% endfor %}
-      </div>
+      {%endif%}
+        
+      {% endfor %}
+
     </div>
   {% endif %}
 {% endblock %}

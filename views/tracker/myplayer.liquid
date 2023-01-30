@@ -1,26 +1,25 @@
 {% layout "layout.liquid" %}
 {% block content %}
-
-  <h1>Display the player that you want to track</h1>
+  <div class="container-lg main-body">
+  <h1>Player Tracker</h1>
   <br>
 
-
-      {% for player in playerDataAPI %}
-        <div class="container-lg">
-          <div class="row">
-        <div class="card mb-3" style="width: 70rem;">
-          <h5 class="card-header">Name: {{ playerDataAPI[forloop.index0].name }}
-          </h5>
-          <h5 class="card-header">Points: {{ playerDataAPI[forloop.index0].stats[0].pts }}</h5>
-          <h5 class="card-header">Rebounds: {{ playerDataAPI[forloop.index0].stats[0].reb }}</h5>
-          <h5 class="card-header">Assists: {{ playerDataAPI[forloop.index0].stats[0].ast }}</h5>
-          <h5 class="card-header">Steals: {{ playerDataAPI[forloop.index0].stats[0].stl }}</h5>
-          <h5 class="card-header">Blocks: {{ playerDataAPI[forloop.index0].stats[0].blk }}</h5>
-          <h5 class="card-header">Field Goal Percentage: {{ playerDataAPI[forloop.index0].stats[0].fg_pct }}</h5>
-
+  
+  {% for player in playerDataAPI %}
+    <div class="container-lg mb-3">
+      <div class="row">
+        <h5 class="col-3">{{ playerDataAPI[forloop.index0].name }}
+        </h5>
+        <p class="col-1">Pts: {{ playerDataAPI[forloop.index0].stats[0].pts }}</p>
+        <p class="col-1">Reb: {{ playerDataAPI[forloop.index0].stats[0].reb }}</p>
+        <p class="col-1">Ast: {{ playerDataAPI[forloop.index0].stats[0].ast }}</p>
+        <p class="col-1">Stl: {{ playerDataAPI[forloop.index0].stats[0].stl }}</p>
+        <p class="col-1">Blk: {{ playerDataAPI[forloop.index0].stats[0].blk }}</p>
+        <p class="col-2">FG Pct: {{ playerDataAPI[forloop.index0].stats[0].fg_pct }}</p>
+        <div class="col">
           <form action="/tracker/player/delete" method="POST">
             <fieldset>
-            <input
+              <input
                 type="hidden"
                 name="id"
                 class="form-control mb-3"
@@ -28,17 +27,16 @@
 
             </form>
             <input
-            type="submit"
-            value="Remove From Tracker"
-            class="btn btn-success"> 
-
+              type="submit"
+              value="Remove"
+              class="btn btn-warning">
+          </div>
         </div>
-        </div>
-        </div>
-      {% endfor %}
+      </div>
+    {% endfor %}
+
+  </div>
 
 
 
-      
- 
 {% endblock %}

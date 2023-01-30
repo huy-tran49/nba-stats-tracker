@@ -1,13 +1,13 @@
 {% layout "layout.liquid" %}
 {% block content %}
-
-<h1>Display the team that you want to track</h1>
+<div class="container-lg main-body">
+<h1>Team Tracker</h1>
 <br>
 <div class="container-lg">
     <div class="row">
       {% for team in teamDataAPI %}
 
-        <div class="card mb-3" style="width: 70rem;">
+        <div class="card-dark mb-3" style="width: 70rem;">
           <h5 class="card-header">Name: {{ teamDataAPI[forloop.index0].stats.full_name }}
           </h5>
           <h5 class="card-header">City: {{ teamDataAPI[forloop.index0].stats.city }}</h5>
@@ -25,12 +25,12 @@
             </form>
             <input
             type="submit"
-            value="Remove From Tracker"
-            class="btn btn-success"> 
+            value="Remove"
+            class="btn btn-warning"> 
 
         </div>
       {% endfor %}
     </div>
   </div>
-
+  </div>
 {% endblock %}

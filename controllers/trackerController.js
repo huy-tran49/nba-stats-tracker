@@ -52,7 +52,6 @@ router.get('/player/myplayer', (req, res) => {
                         playerDataAPI.push(playerdata)
                 }
                 playerDataAPI = playerDataAPI.flat()
-                console.log(playerDataAPI)
                 // console.log('this is playerDataAPI',playerDataAPI)
                 res.render('tracker/myplayer', { loggedIn, username, userId, playerDataAPI}) 
             }
@@ -82,8 +81,7 @@ router.get('/team/myteam', (req, res) => {
                         teamDataAPI.push(teamdata)
                 }
                 teamDataAPI = teamDataAPI.flat()
-               
-                console.log('this is teamDataAPI',teamDataAPI)
+                // console.log('this is teamDataAPI',teamDataAPI)
                 res.render('tracker/myteam', { loggedIn, username, userId, teamDataAPI }) 
             }
             getTeamAPI()
@@ -93,20 +91,36 @@ router.get('/team/myteam', (req, res) => {
         })
  
 }) 
-
 // get all players
-router.get('/all', (req, res) => {
+router.get('/all/:date', (req, res) => {
     const { username, userId, loggedIn } = req.session
-    axios.get('https://balldontlie.io/api/v1/players')
+    const date = req.params.date
+    console.log('this is date',date)
+    axios.get(`https://www.balldontlie.io/api/v1/stats?seasons[]=2022&dates[]=${date}`)
         .then(data => {
-            const players = data.data
-            res.render('tracker/all', { loggedIn, username, userId, players })
+            const games = data.data.data
+            console.log(games)
+            res.render('tracker/all', { loggedIn, username, userId, games, date })
         })
         .catch(err => {
             console.log(err)
             res.sendStatus(404)
         })
 })
+
+// get date from tracker/all
+router.post('/all', (req, res) => {
+    const date = req.body.date
+    res.redirect(`all/${date}`)
+})
+
+//
+router.get('/all', (req, res) => {
+    const { username, userId, loggedIn } = req.session
+    res.render('tracker/all', {loggedIn, username, userId})
+})
+
+
 
 // show a player after search
 router.get('/player/:lastName', (req, res) => {
@@ -135,7 +149,7 @@ router.post('/player', (req, res) => {
     console.log('this is req.body from tracker/player', req.body)
     Player.create(player)
         .then(() => {
-            res.redirect('mine/player') 
+            res.redirect('player/myplayer') 
         })
         .catch(err => {
             console.log(err)
@@ -161,11 +175,16 @@ router.get('/team', (req, res) => {
 // create a team in the database and assign an owner to the team
 router.post('/team', (req, res) => {
     req.body.owner = req.session.userId
-    const team = {idAPI: req.body.id , name: req.body.name, city: req.body.city, owner: req.body.owner}
+    const team = {
+        idAPI: req.body.id, 
+        name: req.body.name, 
+        city: req.body.city, 
+        owner: req.body.owner
+    }
     console.log('this is req.body from tracker/team', req.body)
     Team.create(team)
         .then(() => {
-            res.redirect('mine/team') 
+            res.redirect('team/myteam') 
         })
         .catch(err => {
             console.log(err)
@@ -174,7 +193,6 @@ router.post('/team', (req, res) => {
 })
 
 // delete a player in the database
-
 router.post('/player/delete', (req, res) => {
     const player = {idAPI: req.body.id}
     console.log('this is player ID', player)

@@ -5,7 +5,7 @@
 <div class="container-lg">
   <div class="row">
     {% for team in teamData.data %}
-      <div class="card mb-3" style="width: 70rem;">
+      <div class="card-dark mb-3" style="width: 70rem;">
         <h5 class="card-header">Team Name: {{ team.full_name }}</h5>
         <h5 class="card-header">City: {{ team.city }}</h5>
         <h5 class="card-header">Conference: {{ team.conference }}</h5>
@@ -30,7 +30,7 @@
                 class="form-control mb-3"
                 value="{{ team.full_name }}">
     </form>
-    <input type="submit" value="Add To Tracker" class="btn btn-success">
+    <input type="submit" value="Add" class="btn btn-success">
       </div>
     {% endfor %}
   </div>
