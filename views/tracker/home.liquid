@@ -1,8 +1,10 @@
 {% layout "layout.liquid" %}
 {% block content %}
-
+<div class="container-lg">
   <h1>NBA stats tracker</h1>
 
+  <img src="/media/nba_team_logos.png" alt="NBA teams logo">
+<br>
   {% if loggedIn %}
     <h3>How to use NBA stats tracker</h3>
     <p>Click on search in the navigation bar. Search for the player or team that you want to track. Add the player to your tracker.</p>
@@ -10,5 +12,5 @@
     <h3>Remove player or team from tracker</h3>
     <p>Go to your tracker. Click on the player or team that you want to remove from your tracker. Click "remove" to remove the player or team from your tracker.</p>
   {% endif %}
-
+  </div>
 {% endblock %}

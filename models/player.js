@@ -4,7 +4,6 @@ const User = require('./user')
 const PlayerSchema = new Schema ({
     lastName: {
         type: String,
-        require: true,
     },
     firstName: {
         type: String
