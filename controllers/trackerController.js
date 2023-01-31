@@ -95,7 +95,6 @@ router.get('/team/myteam', (req, res) => {
 router.get('/all/:date', (req, res) => {
     const { username, userId, loggedIn } = req.session
     const date = req.params.date
-    console.log('this is date',date)
     axios.get(`https://www.balldontlie.io/api/v1/stats?seasons[]=2022&dates[]=${date}`)
         .then(data => {
             const games = data.data.data
