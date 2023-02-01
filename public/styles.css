@@ -7,6 +7,10 @@ body {
     justify-content: center;
 }
 
-main-body{
-    
+.coral {
+    color: coral
 }
+
+.score {
+    color: rgb(253, 198, 97);
+} 

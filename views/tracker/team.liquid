@@ -3,10 +3,10 @@
 
 {% if teamData.data.length > 0 %}
 <div class="container-lg">
-  <div class="row">
+  <div class="row justify-content-evenly">
     {% for team in teamData.data %}
-      <div class="card-dark mb-3" style="width: 70rem;">
-        <h5 class="card-header">Team Name: {{ team.full_name }}</h5>
+      <div class=" col-4 card-dark mb-3">
+        <h5 class="card-header coral">{{ team.full_name }}</h5>
         <h5 class="card-header">City: {{ team.city }}</h5>
         <h5 class="card-header">Conference: {{ team.conference }}</h5>
         <h5 class="card-header">ID: {{ team.id }}</h5>
@@ -15,22 +15,22 @@
             <input 
                 type="hidden" 
                 name="id" 
-                class="form-control mb-3"
+                class="form-control"
                 value="{{ team.id }}">
         <fieldset>
             <input 
                 type="hidden" 
                 name="city" 
-                class="form-control mb-3"
+                class="form-control"
                 value="{{ team.city }}">
         <fieldset>
             <input 
                 type="hidden" 
                 name="name" 
-                class="form-control mb-3"
+                class="form-control"
                 value="{{ team.full_name }}">
     </form>
-    <input type="submit" value="Add" class="btn btn-success">
+    <input type="submit" value="Add" class="btn btn-success mt-2">
       </div>
     {% endfor %}
   </div>

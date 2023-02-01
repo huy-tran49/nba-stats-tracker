@@ -1,14 +1,14 @@
 {% layout "layout.liquid" %}
 {% block content %}
-
-  <h1>Display a player after submitting a search</h1>
+<div class="container-lg">
+  <h1>Search result for: {{playerLName}}</h1>
   <br>
   {% if playerData.data.length > 0 %}
     <div class="container-lg">
       
         {% for player in playerData.data %}
-          <div class="row mb-3">
-            <h5 class="col-4">{{ player.first_name }} {{ player.last_name }}</h5>
+          <div class="row mb-3 border-bottom border-light-subtle">
+            <h5 class="col-4 coral">{{ player.first_name }} {{ player.last_name }}</h5>
             <p class="col-2">ID: {{ player.id }}</p>
             <p class="col-4">Team: {{ player.team.full_name }}</p>
             <div class="col">
@@ -39,6 +39,6 @@
       
     </div>
   {% endif %}
-
+  </div>
 
 {% endblock %}

@@ -8,7 +8,7 @@
       {% for team in teamDataAPI %}
 
         <div class="card-dark mb-3" style="width: 70rem;">
-          <h5 class="card-header">Name: {{ teamDataAPI[forloop.index0].stats.full_name }}
+          <h5 class="card-header coral">{{ teamDataAPI[forloop.index0].stats.full_name }}
           </h5>
           <h5 class="card-header">City: {{ teamDataAPI[forloop.index0].stats.city }}</h5>
           <h5 class="card-header">Conference: {{ teamDataAPI[forloop.index0].stats.conference }}</h5>
@@ -19,14 +19,14 @@
             <input
                 type="hidden"
                 name="id"
-                class="form-control mb-3"
+                class="form-control"
                 value="{{ teamDataAPI[forloop.index0].stats.id }}">
 
             </form>
             <input
             type="submit"
             value="Remove"
-            class="btn btn-warning"> 
+            class="btn btn-warning mt-2"> 
 
         </div>
       {% endfor %}

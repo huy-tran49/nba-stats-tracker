@@ -23,7 +23,13 @@ router.get('/search', (req, res) => {
 // search player, accept a player nane and use that a param in redirect
 router.post('/ps', (req, res) => {
     const lastName = req.body.lastName
-    res.redirect(`/tracker/player/${lastName}`)  
+    if (lastName){
+        res.redirect(`/tracker/player/${lastName}`)  
+    } else {
+        let error = 'Please enter a name in the search field'
+        res.redirect(`/error?error=${error}`)
+    }
+    
 })
 
 // search team, show all teams
@@ -57,9 +63,9 @@ router.get('/player/myplayer', (req, res) => {
             }
             getPlayerAPI()    
         })
-        .catch(err => {
-            console.log(err)
-    })
+        .catch((error) => {
+			res.redirect(`/error?error=${error}`)
+		})
 }) 
 
 //show tracker for player
@@ -86,12 +92,12 @@ router.get('/team/myteam', (req, res) => {
             }
             getTeamAPI()
         })
-        .catch(err => {
-            console.log(err)
-        })
+        .catch((error) => {
+			res.redirect(`/error?error=${error}`)
+		})
  
 }) 
-// get all players
+// get score
 router.get('/all/:date', (req, res) => {
     const { username, userId, loggedIn } = req.session
     const date = req.params.date
@@ -101,10 +107,9 @@ router.get('/all/:date', (req, res) => {
             console.log(games)
             res.render('tracker/all', { loggedIn, username, userId, games, date })
         })
-        .catch(err => {
-            console.log(err)
-            res.sendStatus(404)
-        })
+        .catch((error) => {
+			res.redirect(`/error?error=${error}`)
+		})
 })
 
 // get date from tracker/all
@@ -113,7 +118,7 @@ router.post('/all', (req, res) => {
     res.redirect(`all/${date}`)
 })
 
-//
+// show the initial page for /tracker/all
 router.get('/all', (req, res) => {
     const { username, userId, loggedIn } = req.session
     res.render('tracker/all', {loggedIn, username, userId})
@@ -128,12 +133,11 @@ router.get('/player/:lastName', (req, res) => {
     axios.get(`https://balldontlie.io/api/v1/players?search=${playerLName}`)
         .then(data => {
             const playerData = data.data
-            res.render('tracker/player', { loggedIn, username, userId, playerData })
+            res.render('tracker/player', { loggedIn, username, userId, playerData, playerLName })
         })
-        .catch(err => {
-            console.log(err)
-            res.sendStatus(404)
-        })
+        .catch((error) => {
+			res.redirect(`/error?error=${error}`)
+		})
 })
 
 // create a player in the database and assign an owner to the player
@@ -150,10 +154,9 @@ router.post('/player', (req, res) => {
         .then(() => {
             res.redirect('player/myplayer') 
         })
-        .catch(err => {
-            console.log(err)
-            res.sendStatus(404)
-        })
+        .catch((error) => {
+			res.redirect(`/error?error=${error}`)
+		})
 })
 
 //show all teams 
@@ -164,10 +167,9 @@ router.get('/team', (req, res) => {
             const teamData = data.data
             res.render('tracker/team', { loggedIn, username, userId, teamData })
         })
-        .catch(err => {
-            console.log(err)
-            res.sendStatus(404)
-        })
+        .catch((error) => {
+			res.redirect(`/error?error=${error}`)
+		})
     
 })
 
@@ -185,10 +187,9 @@ router.post('/team', (req, res) => {
         .then(() => {
             res.redirect('team/myteam') 
         })
-        .catch(err => {
-            console.log(err)
-            res.sendStatus(404)
-        })
+        .catch((error) => {
+			res.redirect(`/error?error=${error}`)
+		})
 })
 
 // delete a player in the database
@@ -199,10 +200,9 @@ router.post('/player/delete', (req, res) => {
         .then(() => {
             res.redirect('myplayer')
         })
-        .catch(err => {
-            console.log(err)
-            res.sendStatus(404)
-        })
+        .catch((error) => {
+			res.redirect(`/error?error=${error}`)
+		})
 })
 
 // delete a team in the database
@@ -213,10 +213,9 @@ router.post('/team/delete', (req, res) => {
         .then(() => {
             res.redirect('myteam')
         })
-        .catch(err => {
-            console.log(err)
-            res.sendStatus(404)
-        })
+        .catch((error) => {
+			res.redirect(`/error?error=${error}`)
+		})
 })
 
 // tracker main page.

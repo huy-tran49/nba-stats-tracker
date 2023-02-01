@@ -6,9 +6,9 @@
 
   
   {% for player in playerDataAPI %}
-    <div class="container-lg mb-3">
+    <div class="container-lg mb-3 border-bottom border-light-subtle">
       <div class="row">
-        <h5 class="col-3">{{ playerDataAPI[forloop.index0].name }}
+        <h5 class="col-3 coral">{{ playerDataAPI[forloop.index0].name }}
         </h5>
         <p class="col-1">Pts: {{ playerDataAPI[forloop.index0].stats[0].pts }}</p>
         <p class="col-1">Reb: {{ playerDataAPI[forloop.index0].stats[0].reb }}</p>
